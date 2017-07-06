@@ -9,12 +9,22 @@
 /* Begin PBXBuildFile section */
 		ABB1B1751F0DD8EF00ED455D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1741F0DD8EF00ED455D /* main.m */; };
 		ABB1B1781F0DD8EF00ED455D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1771F0DD8EF00ED455D /* AppDelegate.m */; };
-		ABB1B17B1F0DD8EF00ED455D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B17A1F0DD8EF00ED455D /* ViewController.m */; };
-		ABB1B17E1F0DD8EF00ED455D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B17C1F0DD8EF00ED455D /* Main.storyboard */; };
 		ABB1B1801F0DD8EF00ED455D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B17F1F0DD8EF00ED455D /* Assets.xcassets */; };
 		ABB1B1831F0DD8EF00ED455D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B1811F0DD8EF00ED455D /* LaunchScreen.storyboard */; };
 		ABB1B18E1F0DD8EF00ED455D /* DMImagePickerBrowserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B18D1F0DD8EF00ED455D /* DMImagePickerBrowserTests.m */; };
 		ABB1B1991F0DD8EF00ED455D /* DMImagePickerBrowserUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1981F0DD8EF00ED455D /* DMImagePickerBrowserUITests.m */; };
+		ABB1B1AA1F0DDB9300ED455D /* DMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1A91F0DDB9300ED455D /* DMImagePickerViewController.m */; };
+		ABB1B1AD1F0DDC9F00ED455D /* DMImagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1AC1F0DDC9F00ED455D /* DMImagePickerView.m */; };
+		ABB1B1B41F0DE4F600ED455D /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B1B31F0DE4F600ED455D /* back.png */; };
+		ABB1B1BA1F0DE8F800ED455D /* UIColor+SAKitExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1B71F0DE8F800ED455D /* UIColor+SAKitExtend.m */; };
+		ABB1B1BB1F0DE8F800ED455D /* UIFont+SAKitExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1B91F0DE8F800ED455D /* UIFont+SAKitExtend.m */; };
+		ABB1B1C11F0E143400ED455D /* DMImagePickerAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1C01F0E143400ED455D /* DMImagePickerAssetCell.m */; };
+		ABB1B1C61F0E2E7B00ED455D /* select.png in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B1C21F0E2E7B00ED455D /* select.png */; };
+		ABB1B1C71F0E2E7B00ED455D /* unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B1C31F0E2E7B00ED455D /* unselect.png */; };
+		ABB1B1C81F0E2E7B00ED455D /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B1C41F0E2E7B00ED455D /* selected.png */; };
+		ABB1B1C91F0E2E7B00ED455D /* unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B1C51F0E2E7B00ED455D /* unselected.png */; };
+		ABB1B1CC1F0E35A900ED455D /* DMAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1CB1F0E35A900ED455D /* DMAssetModel.m */; };
+		FBF03BFE33A5BB4976924D24 /* libPods-DMImagePickerBrowser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE698C95C6775D8B10F6FB4 /* libPods-DMImagePickerBrowser.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,13 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		151D56B48F3DCCD5EDD98F6F /* Pods-DMImagePickerBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DMImagePickerBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-DMImagePickerBrowser/Pods-DMImagePickerBrowser.release.xcconfig"; sourceTree = "<group>"; };
+		43C8F77C1F1655B2C1B4A5ED /* Pods-DMImagePickerBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DMImagePickerBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DMImagePickerBrowser/Pods-DMImagePickerBrowser.debug.xcconfig"; sourceTree = "<group>"; };
 		ABB1B1701F0DD8EF00ED455D /* DMImagePickerBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DMImagePickerBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB1B1741F0DD8EF00ED455D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ABB1B1761F0DD8EF00ED455D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		ABB1B1771F0DD8EF00ED455D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		ABB1B1791F0DD8EF00ED455D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		ABB1B17A1F0DD8EF00ED455D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		ABB1B17D1F0DD8EF00ED455D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ABB1B17F1F0DD8EF00ED455D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABB1B1821F0DD8EF00ED455D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ABB1B1841F0DD8EF00ED455D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +60,24 @@
 		ABB1B1941F0DD8EF00ED455D /* DMImagePickerBrowserUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DMImagePickerBrowserUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB1B1981F0DD8EF00ED455D /* DMImagePickerBrowserUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DMImagePickerBrowserUITests.m; sourceTree = "<group>"; };
 		ABB1B19A1F0DD8EF00ED455D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABB1B1A81F0DDB9300ED455D /* DMImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImagePickerViewController.h; sourceTree = "<group>"; };
+		ABB1B1A91F0DDB9300ED455D /* DMImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImagePickerViewController.m; sourceTree = "<group>"; };
+		ABB1B1AB1F0DDC9F00ED455D /* DMImagePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImagePickerView.h; sourceTree = "<group>"; };
+		ABB1B1AC1F0DDC9F00ED455D /* DMImagePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImagePickerView.m; sourceTree = "<group>"; };
+		ABB1B1B31F0DE4F600ED455D /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		ABB1B1B61F0DE8F800ED455D /* UIColor+SAKitExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SAKitExtend.h"; sourceTree = "<group>"; };
+		ABB1B1B71F0DE8F800ED455D /* UIColor+SAKitExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SAKitExtend.m"; sourceTree = "<group>"; };
+		ABB1B1B81F0DE8F800ED455D /* UIFont+SAKitExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+SAKitExtend.h"; sourceTree = "<group>"; };
+		ABB1B1B91F0DE8F800ED455D /* UIFont+SAKitExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+SAKitExtend.m"; sourceTree = "<group>"; };
+		ABB1B1BF1F0E143400ED455D /* DMImagePickerAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImagePickerAssetCell.h; sourceTree = "<group>"; };
+		ABB1B1C01F0E143400ED455D /* DMImagePickerAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImagePickerAssetCell.m; sourceTree = "<group>"; };
+		ABB1B1C21F0E2E7B00ED455D /* select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = select.png; sourceTree = "<group>"; };
+		ABB1B1C31F0E2E7B00ED455D /* unselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselect.png; sourceTree = "<group>"; };
+		ABB1B1C41F0E2E7B00ED455D /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
+		ABB1B1C51F0E2E7B00ED455D /* unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected.png; sourceTree = "<group>"; };
+		ABB1B1CA1F0E35A900ED455D /* DMAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMAssetModel.h; sourceTree = "<group>"; };
+		ABB1B1CB1F0E35A900ED455D /* DMAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAssetModel.m; sourceTree = "<group>"; };
+		BBE698C95C6775D8B10F6FB4 /* libPods-DMImagePickerBrowser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DMImagePickerBrowser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBF03BFE33A5BB4976924D24 /* libPods-DMImagePickerBrowser.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +106,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		937E00FFD67491BFC2A703B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBE698C95C6775D8B10F6FB4 /* libPods-DMImagePickerBrowser.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		99BF14D1DE46030A85970D71 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				43C8F77C1F1655B2C1B4A5ED /* Pods-DMImagePickerBrowser.debug.xcconfig */,
+				151D56B48F3DCCD5EDD98F6F /* Pods-DMImagePickerBrowser.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		ABB1B1671F0DD8EF00ED455D = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +130,8 @@
 				ABB1B18C1F0DD8EF00ED455D /* DMImagePickerBrowserTests */,
 				ABB1B1971F0DD8EF00ED455D /* DMImagePickerBrowserUITests */,
 				ABB1B1711F0DD8EF00ED455D /* Products */,
+				99BF14D1DE46030A85970D71 /* Pods */,
+				937E00FFD67491BFC2A703B8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,11 +148,12 @@
 		ABB1B1721F0DD8EF00ED455D /* DMImagePickerBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				ABB1B1B51F0DE8F800ED455D /* category */,
+				ABB1B1AE1F0DDF3000ED455D /* image */,
+				ABB1B1A71F0DDB6700ED455D /* DMImageBrowser */,
+				ABB1B1A61F0DDB5200ED455D /* DMImagePicker */,
 				ABB1B1761F0DD8EF00ED455D /* AppDelegate.h */,
 				ABB1B1771F0DD8EF00ED455D /* AppDelegate.m */,
-				ABB1B1791F0DD8EF00ED455D /* ViewController.h */,
-				ABB1B17A1F0DD8EF00ED455D /* ViewController.m */,
-				ABB1B17C1F0DD8EF00ED455D /* Main.storyboard */,
 				ABB1B17F1F0DD8EF00ED455D /* Assets.xcassets */,
 				ABB1B1811F0DD8EF00ED455D /* LaunchScreen.storyboard */,
 				ABB1B1841F0DD8EF00ED455D /* Info.plist */,
@@ -140,6 +188,51 @@
 			path = DMImagePickerBrowserUITests;
 			sourceTree = "<group>";
 		};
+		ABB1B1A61F0DDB5200ED455D /* DMImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				ABB1B1A81F0DDB9300ED455D /* DMImagePickerViewController.h */,
+				ABB1B1A91F0DDB9300ED455D /* DMImagePickerViewController.m */,
+				ABB1B1AB1F0DDC9F00ED455D /* DMImagePickerView.h */,
+				ABB1B1AC1F0DDC9F00ED455D /* DMImagePickerView.m */,
+				ABB1B1BF1F0E143400ED455D /* DMImagePickerAssetCell.h */,
+				ABB1B1C01F0E143400ED455D /* DMImagePickerAssetCell.m */,
+				ABB1B1CA1F0E35A900ED455D /* DMAssetModel.h */,
+				ABB1B1CB1F0E35A900ED455D /* DMAssetModel.m */,
+			);
+			path = DMImagePicker;
+			sourceTree = "<group>";
+		};
+		ABB1B1A71F0DDB6700ED455D /* DMImageBrowser */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DMImageBrowser;
+			sourceTree = "<group>";
+		};
+		ABB1B1AE1F0DDF3000ED455D /* image */ = {
+			isa = PBXGroup;
+			children = (
+				ABB1B1C21F0E2E7B00ED455D /* select.png */,
+				ABB1B1C31F0E2E7B00ED455D /* unselect.png */,
+				ABB1B1C41F0E2E7B00ED455D /* selected.png */,
+				ABB1B1C51F0E2E7B00ED455D /* unselected.png */,
+				ABB1B1B31F0DE4F600ED455D /* back.png */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
+		ABB1B1B51F0DE8F800ED455D /* category */ = {
+			isa = PBXGroup;
+			children = (
+				ABB1B1B61F0DE8F800ED455D /* UIColor+SAKitExtend.h */,
+				ABB1B1B71F0DE8F800ED455D /* UIColor+SAKitExtend.m */,
+				ABB1B1B81F0DE8F800ED455D /* UIFont+SAKitExtend.h */,
+				ABB1B1B91F0DE8F800ED455D /* UIFont+SAKitExtend.m */,
+			);
+			path = category;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,9 +240,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ABB1B19D1F0DD8EF00ED455D /* Build configuration list for PBXNativeTarget "DMImagePickerBrowser" */;
 			buildPhases = (
+				77D0EEF2D9EF2091E240A314 /* [CP] Check Pods Manifest.lock */,
 				ABB1B16C1F0DD8EF00ED455D /* Sources */,
 				ABB1B16D1F0DD8EF00ED455D /* Frameworks */,
 				ABB1B16E1F0DD8EF00ED455D /* Resources */,
+				E97439467E753556E8671970 /* [CP] Embed Pods Frameworks */,
+				17513110DCBF65AAD9E51FAD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -207,7 +303,8 @@
 				TargetAttributes = {
 					ABB1B16F1F0DD8EF00ED455D = {
 						CreatedOnToolsVersion = 8.3.3;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = XDK267KQ83;
+						ProvisioningStyle = Manual;
 					};
 					ABB1B1881F0DD8EF00ED455D = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -246,9 +343,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABB1B1C81F0E2E7B00ED455D /* selected.png in Resources */,
+				ABB1B1C91F0E2E7B00ED455D /* unselected.png in Resources */,
+				ABB1B1C71F0E2E7B00ED455D /* unselect.png in Resources */,
 				ABB1B1831F0DD8EF00ED455D /* LaunchScreen.storyboard in Resources */,
+				ABB1B1C61F0E2E7B00ED455D /* select.png in Resources */,
 				ABB1B1801F0DD8EF00ED455D /* Assets.xcassets in Resources */,
-				ABB1B17E1F0DD8EF00ED455D /* Main.storyboard in Resources */,
+				ABB1B1B41F0DE4F600ED455D /* back.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,14 +369,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		17513110DCBF65AAD9E51FAD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DMImagePickerBrowser/Pods-DMImagePickerBrowser-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		77D0EEF2D9EF2091E240A314 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E97439467E753556E8671970 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DMImagePickerBrowser/Pods-DMImagePickerBrowser-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		ABB1B16C1F0DD8EF00ED455D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABB1B17B1F0DD8EF00ED455D /* ViewController.m in Sources */,
+				ABB1B1C11F0E143400ED455D /* DMImagePickerAssetCell.m in Sources */,
+				ABB1B1AA1F0DDB9300ED455D /* DMImagePickerViewController.m in Sources */,
+				ABB1B1AD1F0DDC9F00ED455D /* DMImagePickerView.m in Sources */,
+				ABB1B1CC1F0E35A900ED455D /* DMAssetModel.m in Sources */,
 				ABB1B1781F0DD8EF00ED455D /* AppDelegate.m in Sources */,
+				ABB1B1BB1F0DE8F800ED455D /* UIFont+SAKitExtend.m in Sources */,
 				ABB1B1751F0DD8EF00ED455D /* main.m in Sources */,
+				ABB1B1BA1F0DE8F800ED455D /* UIColor+SAKitExtend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,14 +465,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		ABB1B17C1F0DD8EF00ED455D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				ABB1B17D1F0DD8EF00ED455D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		ABB1B1811F0DD8EF00ED455D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -424,23 +570,33 @@
 		};
 		ABB1B19E1F0DD8EF00ED455D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 43C8F77C1F1655B2C1B4A5ED /* Pods-DMImagePickerBrowser.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XDK267KQ83;
 				INFOPLIST_FILE = DMImagePickerBrowser/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.developermichael.DMImagePickerBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "29ecd84c-3f95-48a3-93c4-e78021a43f29";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development *";
 			};
 			name = Debug;
 		};
 		ABB1B19F1F0DD8EF00ED455D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 151D56B48F3DCCD5EDD98F6F /* Pods-DMImagePickerBrowser.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XDK267KQ83;
 				INFOPLIST_FILE = DMImagePickerBrowser/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.developermichael.DMImagePickerBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "29ecd84c-3f95-48a3-93c4-e78021a43f29";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development *";
 			};
 			name = Release;
 		};
@@ -509,6 +665,7 @@
 				ABB1B19F1F0DD8EF00ED455D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ABB1B1A01F0DD8EF00ED455D /* Build configuration list for PBXNativeTarget "DMImagePickerBrowserTests" */ = {
 			isa = XCConfigurationList;
@@ -517,6 +674,7 @@
 				ABB1B1A21F0DD8EF00ED455D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ABB1B1A31F0DD8EF00ED455D /* Build configuration list for PBXNativeTarget "DMImagePickerBrowserUITests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +683,7 @@
 				ABB1B1A51F0DD8EF00ED455D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
