@@ -8,6 +8,7 @@
 
 #import "DMImagePickerAssetCell.h"
 #import <Masonry/Masonry.h>
+#import "DMPhotoManager.h"
 @interface DMImagePickerAssetCell()
 
 @property (nonatomic, strong) UIImageView *selectImageView;
@@ -15,6 +16,8 @@
 @property (nonatomic, strong) UIButton *selectButton;
 
 @property (nonatomic, strong) UIImageView *contentImageView;
+
+@property (nonatomic, strong) UIView *maskView;
 
 @end
 
@@ -48,6 +51,8 @@
     }else{
         _selectImageView.image = [UIImage imageNamed:@"unselect"];
     }
+    
+    _maskView.hidden = !_selectButton.selected;
 }
 
 
@@ -87,15 +92,38 @@
     return _selectImageView;
 }
 
+- (UIView *)maskView {
+    if (!_maskView) {
+        _maskView = [[UIView alloc] init];
+        _maskView.hidden = YES;
+        _maskView.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.5];
+    }
+    return _maskView;
+}
+
+- (void)setModel:(DMAssetModel *)model {
+    _model = model;
+    [[DMPhotoManager sharePhotoManager] getPhotoWithAsset:model.asset photoWidth:120.0 completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+        if (isDegraded) {
+            self.contentImageView.image = photo;
+        }
+        
+    }];
+}
+
 #pragma mark-
 #pragma mark- SetupConstraints
 
 - (void)setupSubviewsContraints{
     [self.contentView addSubview:self.contentImageView];
+    [self.contentView addSubview:self.maskView];
     [self.contentView addSubview:self.selectButton];
     [self.contentView addSubview:self.selectImageView];
     
     [_contentImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.contentView);
+    }];
+    [_maskView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.contentView);
     }];
     [_selectButton mas_makeConstraints:^(MASConstraintMaker *make) {

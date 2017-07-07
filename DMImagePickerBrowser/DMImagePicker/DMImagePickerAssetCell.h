@@ -20,7 +20,7 @@ typedef enum : NSUInteger {
 
 @interface DMImagePickerAssetCell : UICollectionViewCell
 
-//@property (nonatomic, strong) DMAssetModel *model;
+@property (nonatomic, strong) DMAssetModel *model;
 
 @end
 

@@ -10,7 +10,7 @@
 #import "UIFont+SAKitExtend.h"
 #import "UIColor+SAKitExtend.h"
 #import "DMImagePickerAssetCell.h"
-
+#import "DMPhotoManager.h"
 
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 
@@ -28,6 +28,8 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 
 @property (nonatomic, strong) DMImagePickerCollectionView *collectionView;
 
+@property (nonatomic, strong) NSArray <DMAlbumModel *> *albumModelArray;
+
 @end
 
 @implementation DMImagePickerView
@@ -40,6 +42,13 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
     if (self) {
         _columnNumber = 4;
         [self setupSubviewsContraints];
+        [self getAblumModelArray];
+//        dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//        
+//        dispatch_async(concurrentQueue, ^{
+//
+//        });
+        
     }
     return self;
 }
@@ -62,11 +71,17 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 #pragma mark- delegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 100;
+    DMAlbumModel *model = self.albumModelArray[section];
+    return model.photoCount;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return self.albumModelArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DMImagePickerAssetCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionViewCellIdentifier forIndexPath:indexPath];
+    DMAssetModel *model = [[DMPhotoManager sharePhotoManager] getass];
     cell.backgroundColor = [UIColor brownColor];
     return cell;
 }
@@ -87,7 +102,11 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 #pragma mark-
 #pragma mark- Private Methods
 
-
+- (void)getAblumModelArray {
+    [[DMPhotoManager sharePhotoManager] getAllAlbums:YES allowPickingImage:YES completion:^(NSArray<DMAlbumModel *> *models) {
+        self.albumModelArray = models;
+    }];
+}
 
 
 #pragma mark-
@@ -155,6 +174,13 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 
 - (void)setNavTitle:(NSString *)navTitle {
     _titleLabel.text = navTitle;
+}
+
+- (NSArray<DMAlbumModel *> *)albumModelArray {
+    if (!_albumModelArray) {
+        _albumModelArray = [NSArray array];
+    }
+    return _albumModelArray;
 }
 
 #pragma mark-

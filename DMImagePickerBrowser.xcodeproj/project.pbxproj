@@ -24,6 +24,8 @@
 		ABB1B1C81F0E2E7B00ED455D /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B1C41F0E2E7B00ED455D /* selected.png */; };
 		ABB1B1C91F0E2E7B00ED455D /* unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B1C51F0E2E7B00ED455D /* unselected.png */; };
 		ABB1B1CC1F0E35A900ED455D /* DMAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1CB1F0E35A900ED455D /* DMAssetModel.m */; };
+		ABC525B51F0F1F6500283E33 /* DMAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC525B41F0F1F6500283E33 /* DMAlbumModel.m */; };
+		ABC525B81F0F204600283E33 /* DMPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC525B71F0F204600283E33 /* DMPhotoManager.m */; };
 		FBF03BFE33A5BB4976924D24 /* libPods-DMImagePickerBrowser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE698C95C6775D8B10F6FB4 /* libPods-DMImagePickerBrowser.a */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +79,10 @@
 		ABB1B1C51F0E2E7B00ED455D /* unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected.png; sourceTree = "<group>"; };
 		ABB1B1CA1F0E35A900ED455D /* DMAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMAssetModel.h; sourceTree = "<group>"; };
 		ABB1B1CB1F0E35A900ED455D /* DMAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAssetModel.m; sourceTree = "<group>"; };
+		ABC525B31F0F1F6500283E33 /* DMAlbumModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMAlbumModel.h; sourceTree = "<group>"; };
+		ABC525B41F0F1F6500283E33 /* DMAlbumModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAlbumModel.m; sourceTree = "<group>"; };
+		ABC525B61F0F204600283E33 /* DMPhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMPhotoManager.h; sourceTree = "<group>"; };
+		ABC525B71F0F204600283E33 /* DMPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMPhotoManager.m; sourceTree = "<group>"; };
 		BBE698C95C6775D8B10F6FB4 /* libPods-DMImagePickerBrowser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DMImagePickerBrowser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -199,6 +205,10 @@
 				ABB1B1C01F0E143400ED455D /* DMImagePickerAssetCell.m */,
 				ABB1B1CA1F0E35A900ED455D /* DMAssetModel.h */,
 				ABB1B1CB1F0E35A900ED455D /* DMAssetModel.m */,
+				ABC525B31F0F1F6500283E33 /* DMAlbumModel.h */,
+				ABC525B41F0F1F6500283E33 /* DMAlbumModel.m */,
+				ABC525B61F0F204600283E33 /* DMPhotoManager.h */,
+				ABC525B71F0F204600283E33 /* DMPhotoManager.m */,
 			);
 			path = DMImagePicker;
 			sourceTree = "<group>";
@@ -422,12 +432,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABC525B51F0F1F6500283E33 /* DMAlbumModel.m in Sources */,
 				ABB1B1C11F0E143400ED455D /* DMImagePickerAssetCell.m in Sources */,
 				ABB1B1AA1F0DDB9300ED455D /* DMImagePickerViewController.m in Sources */,
 				ABB1B1AD1F0DDC9F00ED455D /* DMImagePickerView.m in Sources */,
 				ABB1B1CC1F0E35A900ED455D /* DMAssetModel.m in Sources */,
 				ABB1B1781F0DD8EF00ED455D /* AppDelegate.m in Sources */,
 				ABB1B1BB1F0DE8F800ED455D /* UIFont+SAKitExtend.m in Sources */,
+				ABC525B81F0F204600283E33 /* DMPhotoManager.m in Sources */,
 				ABB1B1751F0DD8EF00ED455D /* main.m in Sources */,
 				ABB1B1BA1F0DE8F800ED455D /* UIColor+SAKitExtend.m in Sources */,
 			);
