@@ -16,7 +16,7 @@
 
 @implementation DMPhotoManager
 
-static CGSize AssetGridThumbnailSize;
+static CGSize assetGridThumbnailSize;
 static CGFloat DMScreenWidth;
 static CGFloat DMScreenScale;
 
@@ -41,6 +41,7 @@ static CGFloat DMScreenScale;
     _columnNumber = 4;
     _photoPreviewMaxWidth = 600;
     _shouldFixOrientation = YES;
+    _hideWhenCanNotSelect = NO;
     DMScreenWidth = [UIScreen mainScreen].bounds.size.width;
     // 测试发现，如果scale在plus真机上取到3.0，内存会增大特别多。故这里写死成2.0
     DMScreenScale = 2.0;
@@ -223,6 +224,233 @@ static CGFloat DMScreenScale;
 }
 
 
+#pragma mark - Get Assets
+
+/// Get Assets 获得照片数组
+- (void)getAssetsFromFetchResult:(id)result allowPickingVideo:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage completion:(void (^)(NSArray<DMAssetModel *> *))completion {
+    NSMutableArray *photoArr = [NSMutableArray array];
+    if ([result isKindOfClass:[PHFetchResult class]]) {
+        PHFetchResult *fetchResult = (PHFetchResult *)result;
+        [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            DMAssetModel *model = [self assetModelWithAsset:obj allowPickingVideo:allowPickingVideo allowPickingImage:allowPickingImage];
+            if (model) {
+                [photoArr addObject:model];
+            }
+        }];
+        if (completion) completion(photoArr);
+    } else if ([result isKindOfClass:[ALAssetsGroup class]]) {
+        ALAssetsGroup *group = (ALAssetsGroup *)result;
+        if (allowPickingImage && allowPickingVideo) {
+            [group setAssetsFilter:[ALAssetsFilter allAssets]];
+        } else if (allowPickingVideo) {
+            [group setAssetsFilter:[ALAssetsFilter allVideos]];
+        } else if (allowPickingImage) {
+            [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+        }
+        ALAssetsGroupEnumerationResultsBlock resultBlock = ^(ALAsset *result, NSUInteger index, BOOL *stop)  {
+            if (result == nil) {
+                if (completion) completion(photoArr);
+            }
+            DMAssetModel *model = [self assetModelWithAsset:result allowPickingVideo:allowPickingVideo allowPickingImage:allowPickingImage];
+            if (model) {
+                [photoArr addObject:model];
+            }
+        };
+        if (self.sortAscendingByModificationDate) {
+            [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                if (resultBlock) { resultBlock(result,index,stop); }
+            }];
+        } else {
+            [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                if (resultBlock) { resultBlock(result,index,stop); }
+            }];
+        }
+    }
+}
+
+///  Get asset at index 获得下标为index的单个照片
+///  if index beyond bounds, return nil in callback 如果索引越界, 在回调中返回 nil
+- (void)getAssetFromFetchResult:(id)result atIndex:(NSInteger)index allowPickingVideo:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage completion:(void (^)(DMAssetModel *))completion {
+    if ([result isKindOfClass:[PHFetchResult class]]) {
+        PHFetchResult *fetchResult = (PHFetchResult *)result;
+        PHAsset *asset;
+        @try {
+            asset = fetchResult[index];
+        }
+        @catch (NSException* e) {
+            if (completion) completion(nil);
+            return;
+        }
+        DMAssetModel *model = [self assetModelWithAsset:asset allowPickingVideo:allowPickingVideo allowPickingImage:allowPickingImage];
+        if (completion) completion(model);
+    } else if ([result isKindOfClass:[ALAssetsGroup class]]) {
+        ALAssetsGroup *group = (ALAssetsGroup *)result;
+        if (allowPickingImage && allowPickingVideo) {
+            [group setAssetsFilter:[ALAssetsFilter allAssets]];
+        } else if (allowPickingVideo) {
+            [group setAssetsFilter:[ALAssetsFilter allVideos]];
+        } else if (allowPickingImage) {
+            [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+        }
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
+        @try {
+            [group enumerateAssetsAtIndexes:indexSet options:NSEnumerationConcurrent usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                if (!result) return;
+                DMAssetModel *model = [self assetModelWithAsset:result allowPickingVideo:allowPickingVideo allowPickingImage:allowPickingImage];
+                if (completion) completion(model);
+            }];
+        }
+        @catch (NSException* e) {
+            if (completion) completion(nil);
+        }
+    }
+}
+
+#pragma mark -
+#pragma mark - result -> DMAssetModel
+
+- (DMAssetModel *)assetModelWithAsset:(id)asset allowPickingVideo:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage {
+    DMAssetModel *model;
+    DMAssetModelMediaType type = DMAssetModelMediaTypePhoto;
+    if ([asset isKindOfClass:[PHAsset class]]) {
+        PHAsset *phAsset = (PHAsset *)asset;
+        if (phAsset.mediaType == PHAssetMediaTypeVideo)      type = DMAssetModelMediaTypeVideo;
+        else if (phAsset.mediaType == PHAssetMediaTypeAudio) type = DMAssetModelMediaTypeAudio;
+        else if (phAsset.mediaType == PHAssetMediaTypeImage) {
+            if (iOS9Later) {
+                // if (asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) type = DMAssetModelMediaTypeLivePhoto;
+            }
+            // Gif
+            if ([[phAsset valueForKey:@"filename"] hasSuffix:@"GIF"]) {
+                type = DMAssetModelMediaTypePhotoGif;
+            }
+        }
+        if (!allowPickingVideo && type == DMAssetModelMediaTypeVideo) return nil;
+        if (!allowPickingImage && type == DMAssetModelMediaTypePhoto) return nil;
+        if (!allowPickingImage && type == DMAssetModelMediaTypePhotoGif) return nil;
+        
+        if (self.hideWhenCanNotSelect) {
+            // 过滤掉尺寸不满足要求的图片
+            if (![self isPhotoSelectableWithAsset:phAsset]) {
+                return nil;
+            }
+        }
+        NSString *timeLength = type == DMAssetModelMediaTypeVideo ? [NSString stringWithFormat:@"%0.0f",phAsset.duration] : @"";
+        timeLength = [self getNewTimeFromDurationSecond:timeLength.integerValue];
+        model = [DMAssetModel modelWithAsset:asset type:type timeLength:timeLength];
+    } else {
+        if (!allowPickingVideo){
+            model = [DMAssetModel modelWithAsset:asset type:type];
+            return model;
+        }
+        /// Allow picking video
+        if ([[asset valueForProperty:ALAssetPropertyType] isEqualToString:ALAssetTypeVideo]) {
+            type = DMAssetModelMediaTypeVideo;
+            NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] integerValue];
+            NSString *timeLength = [NSString stringWithFormat:@"%0.0f",duration];
+            timeLength = [self getNewTimeFromDurationSecond:timeLength.integerValue];
+            model = [DMAssetModel modelWithAsset:asset type:type timeLength:timeLength];
+        } else {
+            if (self.hideWhenCanNotSelect) {
+                // 过滤掉尺寸不满足要求的图片
+                if (![self isPhotoSelectableWithAsset:asset]) {
+                    return nil;
+                }
+            }
+            model = [DMAssetModel modelWithAsset:asset type:type];
+        }
+    }
+    return model;
+}
+
+/// 检查照片大小是否满足最小要求
+- (BOOL)isPhotoSelectableWithAsset:(id)asset {
+    CGSize photoSize = [self photoSizeWithAsset:asset];
+    if (self.minPhotoWidthSelectable > photoSize.width || self.minPhotoHeightSelectable > photoSize.height) {
+        return NO;
+    }
+    return YES;
+}
+          
+- (CGSize)photoSizeWithAsset:(id)asset {
+    if (iOS8Later) {
+        PHAsset *phAsset = (PHAsset *)asset;
+        return CGSizeMake(phAsset.pixelWidth, phAsset.pixelHeight);
+    } else {
+        ALAsset *alAsset = (ALAsset *)asset;
+        return alAsset.defaultRepresentation.dimensions;
+    }
+}
+
+
+- (NSString *)getNewTimeFromDurationSecond:(NSInteger)duration {
+    NSString *newTime;
+    if (duration < 10) {
+        newTime = [NSString stringWithFormat:@"0:0%zd",duration];
+    } else if (duration < 60) {
+        newTime = [NSString stringWithFormat:@"0:%zd",duration];
+    } else {
+        NSInteger min = duration / 60;
+        NSInteger sec = duration - (min * 60);
+        if (sec < 10) {
+            newTime = [NSString stringWithFormat:@"%zd:0%zd",min,sec];
+        } else {
+            newTime = [NSString stringWithFormat:@"%zd:%zd",min,sec];
+        }
+    }
+    return newTime;
+}
+
+/// Get photo bytes 获得一组照片的大小
+- (void)getPhotosBytesWithArray:(NSArray *)photos completion:(void (^)(NSString *totalBytes))completion {
+    __block NSInteger dataLength = 0;
+    __block NSInteger assetCount = 0;
+    for (NSInteger i = 0; i < photos.count; i++) {
+        DMAssetModel *model = photos[i];
+        if ([model.asset isKindOfClass:[PHAsset class]]) {
+            [[PHImageManager defaultManager] requestImageDataForAsset:model.asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+                if (model.type != DMAssetModelMediaTypeVideo) dataLength += imageData.length;
+                assetCount ++;
+                if (assetCount >= photos.count) {
+                    NSString *bytes = [self getBytesFromDataLength:dataLength];
+                    if (completion) completion(bytes);
+                }
+            }];
+        } else if ([model.asset isKindOfClass:[ALAsset class]]) {
+            ALAssetRepresentation *representation = [model.asset defaultRepresentation];
+            if (model.type != DMAssetModelMediaTypeVideo) dataLength += (NSInteger)representation.size;
+            if (i >= photos.count - 1) {
+                NSString *bytes = [self getBytesFromDataLength:dataLength];
+                if (completion) completion(bytes);
+            }
+        }
+    }
+}
+
+- (NSString *)getBytesFromDataLength:(NSInteger)dataLength {
+    NSString *bytes;
+    if (dataLength >= 0.1 * (1024 * 1024)) {
+        bytes = [NSString stringWithFormat:@"%0.1fM",dataLength/1024/1024.0];
+    } else if (dataLength >= 1024) {
+        bytes = [NSString stringWithFormat:@"%0.0fK",dataLength/1024.0];
+    } else {
+        bytes = [NSString stringWithFormat:@"%zdB",dataLength];
+    }
+    return bytes;
+}
+
+- (NSString *)getAssetIdentifier:(id)asset {
+    if (iOS8Later) {
+        PHAsset *phAsset = (PHAsset *)asset;
+        return phAsset.localIdentifier;
+    } else {
+        ALAsset *alAsset = (ALAsset *)asset;
+        NSURL *assetUrl = [alAsset valueForProperty:ALAssetPropertyAssetURL];
+        return assetUrl.absoluteString;
+    }
+}
+
+
 #pragma mark -
 #pragma mark - asset -> image
 
@@ -252,7 +480,7 @@ static CGFloat DMScreenScale;
         CGSize imageSize;
         //这里相当于，如果需要的既不是全屏图片，也不是预览图片，就是获取缩略图，并不是你传入的imageSize
         if (photoWidth < DMScreenWidth && photoWidth < _photoPreviewMaxWidth) {
-            imageSize = AssetGridThumbnailSize;
+            imageSize = assetGridThumbnailSize;
         } else {
             PHAsset *phAsset = (PHAsset *)asset;
             CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
@@ -498,7 +726,7 @@ static CGFloat DMScreenScale;
     _columnNumber = columnNumber;
     CGFloat margin = 5;
     CGFloat itemWH = (DMScreenWidth - (self.columnNumber + 1) * margin) / self.columnNumber;
-    AssetGridThumbnailSize = CGSizeMake(itemWH * DMScreenScale, itemWH * DMScreenScale);
+    assetGridThumbnailSize = CGSizeMake(itemWH * DMScreenScale, itemWH * DMScreenScale);
 }
 
 @end

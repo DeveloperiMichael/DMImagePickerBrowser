@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "DMAlbumModel.h"
 @class DMImagePickerCollectionView;
 
 @interface DMImagePickerViewController : UIViewController
@@ -18,7 +18,7 @@
  */
 @property (nonatomic, copy) NSString *fileName;
 
-
+@property (nonatomic, strong) NSArray *albumModelArray;
 
 @end
 

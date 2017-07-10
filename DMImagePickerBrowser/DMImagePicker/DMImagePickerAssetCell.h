@@ -21,6 +21,12 @@ typedef enum : NSUInteger {
 @interface DMImagePickerAssetCell : UICollectionViewCell
 
 @property (nonatomic, strong) DMAssetModel *model;
+@property (nonatomic, copy) NSString *representedAssetIdentifier;
+@property (nonatomic, assign) PHImageRequestID imageRequestID;
+@property (nonatomic, assign) DMAssetCellType type;
+@property (nonatomic, assign) BOOL allowPickingGif;
+@property (nonatomic, copy) void (^didSelectPhotoBlock)(BOOL);
+@property (nonatomic, strong) UIButton *selectButton;
 
 @end
 

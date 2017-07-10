@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB14E6041F13587200FBB9DF /* DMAlbnmListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB14E6031F13587200FBB9DF /* DMAlbnmListViewController.m */; };
 		ABB1B1751F0DD8EF00ED455D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1741F0DD8EF00ED455D /* main.m */; };
 		ABB1B1781F0DD8EF00ED455D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1771F0DD8EF00ED455D /* AppDelegate.m */; };
 		ABB1B1801F0DD8EF00ED455D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B17F1F0DD8EF00ED455D /* Assets.xcassets */; };
@@ -49,6 +50,8 @@
 /* Begin PBXFileReference section */
 		151D56B48F3DCCD5EDD98F6F /* Pods-DMImagePickerBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DMImagePickerBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-DMImagePickerBrowser/Pods-DMImagePickerBrowser.release.xcconfig"; sourceTree = "<group>"; };
 		43C8F77C1F1655B2C1B4A5ED /* Pods-DMImagePickerBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DMImagePickerBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DMImagePickerBrowser/Pods-DMImagePickerBrowser.debug.xcconfig"; sourceTree = "<group>"; };
+		AB14E6021F13587200FBB9DF /* DMAlbnmListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMAlbnmListViewController.h; sourceTree = "<group>"; };
+		AB14E6031F13587200FBB9DF /* DMAlbnmListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAlbnmListViewController.m; sourceTree = "<group>"; };
 		ABB1B1701F0DD8EF00ED455D /* DMImagePickerBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DMImagePickerBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB1B1741F0DD8EF00ED455D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ABB1B1761F0DD8EF00ED455D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 		ABB1B1A61F0DDB5200ED455D /* DMImagePicker */ = {
 			isa = PBXGroup;
 			children = (
+				AB14E6021F13587200FBB9DF /* DMAlbnmListViewController.h */,
+				AB14E6031F13587200FBB9DF /* DMAlbnmListViewController.m */,
 				ABB1B1A81F0DDB9300ED455D /* DMImagePickerViewController.h */,
 				ABB1B1A91F0DDB9300ED455D /* DMImagePickerViewController.m */,
 				ABB1B1AB1F0DDC9F00ED455D /* DMImagePickerView.h */,
@@ -437,6 +442,7 @@
 				ABB1B1AA1F0DDB9300ED455D /* DMImagePickerViewController.m in Sources */,
 				ABB1B1AD1F0DDC9F00ED455D /* DMImagePickerView.m in Sources */,
 				ABB1B1CC1F0E35A900ED455D /* DMAssetModel.m in Sources */,
+				AB14E6041F13587200FBB9DF /* DMAlbnmListViewController.m in Sources */,
 				ABB1B1781F0DD8EF00ED455D /* AppDelegate.m in Sources */,
 				ABB1B1BB1F0DE8F800ED455D /* UIFont+SAKitExtend.m in Sources */,
 				ABC525B81F0F204600283E33 /* DMPhotoManager.m in Sources */,

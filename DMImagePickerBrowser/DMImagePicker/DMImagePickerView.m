@@ -30,6 +30,8 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 
 @property (nonatomic, strong) NSArray <DMAlbumModel *> *albumModelArray;
 
+@property (nonatomic, strong) NSMutableArray<DMAssetModel *> *assetModelArray;
+
 @end
 
 @implementation DMImagePickerView
@@ -37,17 +39,13 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 #pragma mark-
 #pragma mark- View Life Cycle
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+- (instancetype)initWithAssetModelArray:(NSMutableArray *)array {
+    self = [super init];
     if (self) {
+        self.assetModelArray = array;
         _columnNumber = 4;
+        [DMPhotoManager sharePhotoManager].columnNumber = _columnNumber;
         [self setupSubviewsContraints];
-        [self getAblumModelArray];
-//        dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        
-//        dispatch_async(concurrentQueue, ^{
-//
-//        });
         
     }
     return self;
@@ -71,18 +69,20 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 #pragma mark- delegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    DMAlbumModel *model = self.albumModelArray[section];
-    return model.photoCount;
+    return self.assetModelArray.count;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return self.albumModelArray.count;
-}
+//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+//    return self.albumModelArray.count;
+//}
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DMImagePickerAssetCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionViewCellIdentifier forIndexPath:indexPath];
-    DMAssetModel *model = [[DMPhotoManager sharePhotoManager] getass];
-    cell.backgroundColor = [UIColor brownColor];
+    cell.model = self.assetModelArray[indexPath.row];
+    __weak typeof(cell) weakCell = cell;
+   cell.didSelectPhotoBlock = ^(BOOL isSelected) {
+       weakCell.model.isSelected = isSelected;
+   };
     return cell;
 }
 
@@ -96,17 +96,24 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 #pragma mark-
 #pragma mark- Event response
 
+- (void)backButtonAction:(UIButton *)button {
 
+    if ([_delegate respondsToSelector:@selector(backButtonClicked:)]) {
+        [_delegate backButtonClicked:self];
+    }
+}
 
+- (void)sureButtonAction:(UIButton *)button {
+    if ([_delegate respondsToSelector:@selector(sureButtonClicked:)]) {
+        [_delegate sureButtonClicked:self];
+    }
+}
 
 #pragma mark-
 #pragma mark- Private Methods
 
-- (void)getAblumModelArray {
-    [[DMPhotoManager sharePhotoManager] getAllAlbums:YES allowPickingImage:YES completion:^(NSArray<DMAlbumModel *> *models) {
-        self.albumModelArray = models;
-    }];
-}
+
+
 
 
 #pragma mark-
@@ -127,6 +134,7 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
         _leftButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
         [_leftButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         [_leftButton setTitleColor:[UIColor sa_colorC11] forState:UIControlStateNormal];
+        [_leftButton addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _leftButton;
 }
@@ -134,9 +142,10 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 - (UIButton *)rightButton {
     if (!_rightButton) {
         _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_rightButton setTitle:@"取消" forState:UIControlStateNormal];
+        [_rightButton setTitle:@"确定" forState:UIControlStateNormal];
         _rightButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
         [_rightButton setTitleColor:[UIColor sa_colorC11] forState:UIControlStateNormal];
+        [_rightButton addTarget:self action:@selector(sureButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightButton;
 }
@@ -181,6 +190,13 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
         _albumModelArray = [NSArray array];
     }
     return _albumModelArray;
+}
+
+- (NSMutableArray<DMAssetModel *> *)assetModelArray {
+    if (!_assetModelArray) {
+        _assetModelArray = [NSMutableArray array];
+    }
+    return _assetModelArray;
 }
 
 #pragma mark-

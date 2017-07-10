@@ -12,6 +12,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "DMAssetModel.h"
 #import "DMAlbumModel.h"
+
 #define iOS7Later ([UIDevice currentDevice].systemVersion.floatValue >= 7.0f)
 #define iOS8Later ([UIDevice currentDevice].systemVersion.floatValue >= 8.0f)
 #define iOS9Later ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f)
@@ -21,6 +22,9 @@
 + (instancetype)sharePhotoManager;
 
 @property (nonatomic, strong) PHCachingImageManager *cachingImageManager;
+
+/** 不能选择的照片是否隐藏 */
+@property (nonatomic, assign) BOOL hideWhenCanNotSelect;
 
 /** 是否修正账片 默认修正 */
 @property (nonatomic, assign) BOOL shouldFixOrientation;
@@ -50,7 +54,14 @@
 - (void)getCameraRollAlbum:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage completion:(void (^)(DMAlbumModel *model))completion;
 - (void)getAllAlbums:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage completion:(void (^)(NSArray<DMAlbumModel *> *models))completion;
 
+
+/** Get Assets 获得Asset数组 */
+- (void)getAssetsFromFetchResult:(id)result allowPickingVideo:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage completion:(void (^)(NSArray<DMAssetModel *> *models))completion;
+- (void)getAssetFromFetchResult:(id)result atIndex:(NSInteger)index allowPickingVideo:(BOOL)allowPickingVideo allowPickingImage:(BOOL)allowPickingImage completion:(void (^)(DMAssetModel *model))completion;
+- (NSString *)getAssetIdentifier:(id)asset;
+
 /** Get photo 获得照片 */
+- (BOOL)isPhotoSelectableWithAsset:(id)asset;
 - (void)getPostImageWithAlbumModel:(DMAlbumModel *)model completion:(void (^)(UIImage *postImage))completion;
 
 - (PHImageRequestID)getPhotoWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion;

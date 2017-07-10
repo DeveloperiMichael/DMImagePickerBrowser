@@ -11,13 +11,14 @@
 #import "DMPhotoManager.h"
 @interface DMImagePickerAssetCell()
 
-@property (nonatomic, strong) UIImageView *selectImageView;
 
-@property (nonatomic, strong) UIButton *selectButton;
+@property (nonatomic, strong) UIImageView *selectImageView;
 
 @property (nonatomic, strong) UIImageView *contentImageView;
 
 @property (nonatomic, strong) UIView *maskView;
+
+@property (nonatomic, assign) PHImageRequestID bigImageRequestID;
 
 @end
 
@@ -45,11 +46,20 @@
 #pragma mark- Event response
 
 - (void)selectButtonAction:(UIButton *)button {
-    _selectButton.selected = !_selectButton.selected;
-    if (_selectButton.selected) {
-        _selectImageView.image = [UIImage imageNamed:@"select"];
-    }else{
-        _selectImageView.image = [UIImage imageNamed:@"unselect"];
+    button.selected = !button.selected;
+    
+//    if (self.didSelectPhotoBlock) {
+//        self.didSelectPhotoBlock(sender.isSelected);
+//    }
+    self.selectImageView.image = button.isSelected ? [UIImage imageNamed:@"select"] : [UIImage imageNamed:@"unselect"];
+    if (button.isSelected) {
+//        [UIView showOscillatoryAnimationWithLayer:_contentImageView.layer type:TZOscillatoryAnimationToBigger];
+        // 用户选中了该图片，提前获取一下大图
+        [self fetchBigImage];
+    } else { // 取消选中，取消大图的获取
+        if (_bigImageRequestID) {
+            [[PHImageManager defaultManager] cancelImageRequest:_bigImageRequestID];
+        }
     }
     
     _maskView.hidden = !_selectButton.selected;
@@ -59,6 +69,23 @@
 #pragma mark-
 #pragma mark- Private Methods
 
+- (void)fetchBigImage {
+    _bigImageRequestID = [[DMPhotoManager sharePhotoManager] getPhotoWithAsset:_model.asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+//        if (_progressView) {
+//            [self hideProgressView];
+//        }
+    } progressHandler:^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+        if (_model.isSelected) {
+//            progress = progress > 0.02 ? progress : 0.02;;
+//            self.progressView.progress = progress;
+//            self.progressView.hidden = NO;
+//            self.imageView.alpha = 0.4;
+        } else {
+            *stop = YES;
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        }
+    } networkAccessAllowed:YES];
+}
 
 
 
@@ -68,10 +95,8 @@
 - (UIImageView *)contentImageView {
     if (!_contentImageView) {
         _contentImageView = [[UIImageView alloc] init];
-        int a = arc4random()%255;
-        int b = arc4random()%255;
-        int c = arc4random()%255;
-        _contentImageView.backgroundColor = [UIColor colorWithRed:a/255.0 green:b/255.0 blue:c/255.0 alpha:1.0];
+        _contentImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _contentImageView.clipsToBounds = YES;
     }
     return _contentImageView;
 }
@@ -103,13 +128,75 @@
 
 - (void)setModel:(DMAssetModel *)model {
     _model = model;
-    [[DMPhotoManager sharePhotoManager] getPhotoWithAsset:model.asset photoWidth:120.0 completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
-        if (isDegraded) {
-            self.contentImageView.image = photo;
+    if (iOS8Later) {
+        self.representedAssetIdentifier = [[DMPhotoManager sharePhotoManager] getAssetIdentifier:model.asset];
+    }
+    PHImageRequestID imageRequestID = [[DMPhotoManager sharePhotoManager] getPhotoWithAsset:model.asset photoWidth:self.contentView.frame.size.width completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+//        if (_progressView) {
+//            self.progressView.hidden = YES;
+//            self.imageView.alpha = 1.0;
+//        }
+        // Set the cell's thumbnail image if it's still showing the same asset.
+        if (!iOS8Later) {
+            self.contentImageView.image = photo; return;
         }
-        
-    }];
+        if ([self.representedAssetIdentifier isEqualToString:[[DMPhotoManager sharePhotoManager] getAssetIdentifier:model.asset]]) {
+            self.contentImageView.image = photo;
+        } else {
+            // NSLog(@"this cell is showing other asset");
+            [[PHImageManager defaultManager] cancelImageRequest:self.imageRequestID];
+        }
+        if (!isDegraded) {
+            self.imageRequestID = 0;
+        }
+    } progressHandler:nil networkAccessAllowed:NO];
+    if (imageRequestID && self.imageRequestID && imageRequestID != self.imageRequestID) {
+        [[PHImageManager defaultManager] cancelImageRequest:self.imageRequestID];
+        // NSLog(@"cancelImageRequest %d",self.imageRequestID);
+    }
+    self.imageRequestID = imageRequestID;
+    self.selectButton.selected = model.isSelected;
+    self.selectImageView.image = self.selectButton.isSelected ? [UIImage imageNamed:@"select"] : [UIImage imageNamed:@"unselect"];
+    self.type = (NSInteger)model.type;
+    // 让宽度/高度小于 最小可选照片尺寸 的图片不能选中
+    if (![[DMPhotoManager sharePhotoManager] isPhotoSelectableWithAsset:model.asset]) {
+        if (_selectImageView.hidden == NO) {
+            self.selectButton.hidden = YES;
+            _selectImageView.hidden = YES;
+        }
+    }
+    // 如果用户选中了该图片，提前获取一下大图
+    if (model.isSelected) {
+        [self fetchBigImage];
+    }
 }
+
+- (void)setType:(DMAssetCellType)type {
+    _type = type;
+    if (type == DMAssetCellTypePhoto || type == DMAssetCellTypeLivePhoto || (type == DMAssetCellTypePhotoGif && !self.allowPickingGif)) {
+        _selectImageView.hidden = NO;
+        _selectButton.hidden = NO;
+        //_bottomView.hidden = YES;
+    } else { // Video of Gif
+        _selectImageView.hidden = YES;
+//        _selectPhotoButton.hidden = YES;
+//        _bottomView.hidden = NO;
+        if (type == DMAssetCellTypeVideo) {
+            //self.timeLength.text = _model.timeLength;
+//            self.videoImgView.hidden = NO;
+//            _timeLength.tz_left = self.videoImgView.tz_right;
+//            _timeLength.textAlignment = NSTextAlignmentRight;
+        } else {
+//            self.timeLength.text = @"GIF";
+//            self.videoImgView.hidden = YES;
+//            _timeLength.tz_left = 5;
+//            _timeLength.textAlignment = NSTextAlignmentLeft;
+        }
+    }
+}
+
+
+
 
 #pragma mark-
 #pragma mark- SetupConstraints
