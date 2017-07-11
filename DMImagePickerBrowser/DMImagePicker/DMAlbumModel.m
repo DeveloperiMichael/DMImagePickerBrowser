@@ -11,6 +11,19 @@
 @implementation DMAlbumModel
 
 
+- (NSArray<DMAssetModel *> *)assetModels {
+    if (!_assetModels) {
+        _assetModels = [NSArray array];
+    }
+    return _assetModels;
+}
+
+- (NSMutableArray<DMAssetModel *> *)selectedModels {
+    if (!_selectedModels) {
+        _selectedModels = [NSMutableArray array];
+    }
+    return _selectedModels;
+}
 
 
 @end

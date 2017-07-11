@@ -48,9 +48,9 @@
 - (void)selectButtonAction:(UIButton *)button {
     button.selected = !button.selected;
     
-//    if (self.didSelectPhotoBlock) {
-//        self.didSelectPhotoBlock(sender.isSelected);
-//    }
+    if (self.didSelectPhotoBlock) {
+        self.didSelectPhotoBlock(button.isSelected);
+    }
     self.selectImageView.image = button.isSelected ? [UIImage imageNamed:@"select"] : [UIImage imageNamed:@"unselect"];
     if (button.isSelected) {
 //        [UIView showOscillatoryAnimationWithLayer:_contentImageView.layer type:TZOscillatoryAnimationToBigger];

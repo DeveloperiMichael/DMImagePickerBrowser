@@ -26,11 +26,7 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
-@property (nonatomic, strong) DMImagePickerCollectionView *collectionView;
-
-@property (nonatomic, strong) NSArray <DMAlbumModel *> *albumModelArray;
-
-@property (nonatomic, strong) NSMutableArray<DMAssetModel *> *assetModelArray;
+@property (nonatomic, strong) NSArray<DMAssetModel *> *assetModelArray;
 
 @end
 
@@ -39,7 +35,7 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 #pragma mark-
 #pragma mark- View Life Cycle
 
-- (instancetype)initWithAssetModelArray:(NSMutableArray *)array {
+- (instancetype)initWithAssetModelArray:(NSArray *)array {
     self = [super init];
     if (self) {
         self.assetModelArray = array;
@@ -72,10 +68,6 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
     return self.assetModelArray.count;
 }
 
-//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-//    return self.albumModelArray.count;
-//}
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DMImagePickerAssetCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionViewCellIdentifier forIndexPath:indexPath];
     cell.model = self.assetModelArray[indexPath.row];
@@ -87,7 +79,9 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if ([_delegate respondsToSelector:@selector(didSelectItemAtIndexPath:collectionView:)]) {
+        [_delegate didSelectItemAtIndexPath:indexPath collectionView:collectionView];
+    }
 }
 
 
@@ -185,14 +179,8 @@ static NSString *const kCollectionViewCellIdentifier = @"DMImagePickerAssetCell"
     _titleLabel.text = navTitle;
 }
 
-- (NSArray<DMAlbumModel *> *)albumModelArray {
-    if (!_albumModelArray) {
-        _albumModelArray = [NSArray array];
-    }
-    return _albumModelArray;
-}
 
-- (NSMutableArray<DMAssetModel *> *)assetModelArray {
+- (NSArray<DMAssetModel *> *)assetModelArray {
     if (!_assetModelArray) {
         _assetModelArray = [NSMutableArray array];
     }

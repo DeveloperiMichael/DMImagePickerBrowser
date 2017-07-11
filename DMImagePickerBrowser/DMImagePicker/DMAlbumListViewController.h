@@ -1,5 +1,5 @@
 //
-//  DMAlbnmListViewController.h
+//  DMAlbumListViewController.h
 //  DMImagePickerBrowser
 //
 //  Created by 张炯 on 2017/7/10.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DMAlbnmListViewController : UIViewController
+@interface DMAlbumListViewController : UIViewController
 
 @end

@@ -7,14 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB14E6041F13587200FBB9DF /* DMAlbnmListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB14E6031F13587200FBB9DF /* DMAlbnmListViewController.m */; };
+		AB14E6041F13587200FBB9DF /* DMAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB14E6031F13587200FBB9DF /* DMAlbumListViewController.m */; };
+		AB89C5151F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89C5141F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m */; };
+		AB89C51A1F14BD63008D10DB /* DMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89C5191F14BD63008D10DB /* DMImagePickerViewController.m */; };
+		AB89C51D1F14BDDE008D10DB /* DMImageBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89C51C1F14BDDE008D10DB /* DMImageBrowserViewController.m */; };
+		AB89C5201F14C2F6008D10DB /* DMImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89C51F1F14C2F6008D10DB /* DMImageBrowserView.m */; };
 		ABB1B1751F0DD8EF00ED455D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1741F0DD8EF00ED455D /* main.m */; };
 		ABB1B1781F0DD8EF00ED455D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1771F0DD8EF00ED455D /* AppDelegate.m */; };
 		ABB1B1801F0DD8EF00ED455D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B17F1F0DD8EF00ED455D /* Assets.xcassets */; };
 		ABB1B1831F0DD8EF00ED455D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B1811F0DD8EF00ED455D /* LaunchScreen.storyboard */; };
 		ABB1B18E1F0DD8EF00ED455D /* DMImagePickerBrowserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B18D1F0DD8EF00ED455D /* DMImagePickerBrowserTests.m */; };
 		ABB1B1991F0DD8EF00ED455D /* DMImagePickerBrowserUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1981F0DD8EF00ED455D /* DMImagePickerBrowserUITests.m */; };
-		ABB1B1AA1F0DDB9300ED455D /* DMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1A91F0DDB9300ED455D /* DMImagePickerViewController.m */; };
 		ABB1B1AD1F0DDC9F00ED455D /* DMImagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1AC1F0DDC9F00ED455D /* DMImagePickerView.m */; };
 		ABB1B1B41F0DE4F600ED455D /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = ABB1B1B31F0DE4F600ED455D /* back.png */; };
 		ABB1B1BA1F0DE8F800ED455D /* UIColor+SAKitExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1B1B71F0DE8F800ED455D /* UIColor+SAKitExtend.m */; };
@@ -50,8 +53,15 @@
 /* Begin PBXFileReference section */
 		151D56B48F3DCCD5EDD98F6F /* Pods-DMImagePickerBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DMImagePickerBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-DMImagePickerBrowser/Pods-DMImagePickerBrowser.release.xcconfig"; sourceTree = "<group>"; };
 		43C8F77C1F1655B2C1B4A5ED /* Pods-DMImagePickerBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DMImagePickerBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DMImagePickerBrowser/Pods-DMImagePickerBrowser.debug.xcconfig"; sourceTree = "<group>"; };
-		AB14E6021F13587200FBB9DF /* DMAlbnmListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMAlbnmListViewController.h; sourceTree = "<group>"; };
-		AB14E6031F13587200FBB9DF /* DMAlbnmListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAlbnmListViewController.m; sourceTree = "<group>"; };
+		AB14E6021F13587200FBB9DF /* DMAlbumListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMAlbumListViewController.h; sourceTree = "<group>"; };
+		AB14E6031F13587200FBB9DF /* DMAlbumListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAlbumListViewController.m; sourceTree = "<group>"; };
+		AB89C5131F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMImageBrowserCollectionViewCell.h; path = ../DMImagePicker/DMImageBrowserCollectionViewCell.h; sourceTree = "<group>"; };
+		AB89C5141F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DMImageBrowserCollectionViewCell.m; path = ../DMImagePicker/DMImageBrowserCollectionViewCell.m; sourceTree = "<group>"; };
+		AB89C5191F14BD63008D10DB /* DMImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImagePickerViewController.m; sourceTree = "<group>"; };
+		AB89C51B1F14BDDE008D10DB /* DMImageBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMImageBrowserViewController.h; path = ../DMImagePicker/LxGridView/DMImageBrowserViewController.h; sourceTree = "<group>"; };
+		AB89C51C1F14BDDE008D10DB /* DMImageBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DMImageBrowserViewController.m; path = ../DMImagePicker/LxGridView/DMImageBrowserViewController.m; sourceTree = "<group>"; };
+		AB89C51E1F14C2F6008D10DB /* DMImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageBrowserView.h; sourceTree = "<group>"; };
+		AB89C51F1F14C2F6008D10DB /* DMImageBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageBrowserView.m; sourceTree = "<group>"; };
 		ABB1B1701F0DD8EF00ED455D /* DMImagePickerBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DMImagePickerBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB1B1741F0DD8EF00ED455D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ABB1B1761F0DD8EF00ED455D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -66,7 +76,6 @@
 		ABB1B1981F0DD8EF00ED455D /* DMImagePickerBrowserUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DMImagePickerBrowserUITests.m; sourceTree = "<group>"; };
 		ABB1B19A1F0DD8EF00ED455D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABB1B1A81F0DDB9300ED455D /* DMImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImagePickerViewController.h; sourceTree = "<group>"; };
-		ABB1B1A91F0DDB9300ED455D /* DMImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImagePickerViewController.m; sourceTree = "<group>"; };
 		ABB1B1AB1F0DDC9F00ED455D /* DMImagePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImagePickerView.h; sourceTree = "<group>"; };
 		ABB1B1AC1F0DDC9F00ED455D /* DMImagePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImagePickerView.m; sourceTree = "<group>"; };
 		ABB1B1B31F0DE4F600ED455D /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
@@ -200,10 +209,10 @@
 		ABB1B1A61F0DDB5200ED455D /* DMImagePicker */ = {
 			isa = PBXGroup;
 			children = (
-				AB14E6021F13587200FBB9DF /* DMAlbnmListViewController.h */,
-				AB14E6031F13587200FBB9DF /* DMAlbnmListViewController.m */,
+				AB14E6021F13587200FBB9DF /* DMAlbumListViewController.h */,
+				AB14E6031F13587200FBB9DF /* DMAlbumListViewController.m */,
 				ABB1B1A81F0DDB9300ED455D /* DMImagePickerViewController.h */,
-				ABB1B1A91F0DDB9300ED455D /* DMImagePickerViewController.m */,
+				AB89C5191F14BD63008D10DB /* DMImagePickerViewController.m */,
 				ABB1B1AB1F0DDC9F00ED455D /* DMImagePickerView.h */,
 				ABB1B1AC1F0DDC9F00ED455D /* DMImagePickerView.m */,
 				ABB1B1BF1F0E143400ED455D /* DMImagePickerAssetCell.h */,
@@ -221,6 +230,12 @@
 		ABB1B1A71F0DDB6700ED455D /* DMImageBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				AB89C51B1F14BDDE008D10DB /* DMImageBrowserViewController.h */,
+				AB89C51C1F14BDDE008D10DB /* DMImageBrowserViewController.m */,
+				AB89C5131F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.h */,
+				AB89C5141F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m */,
+				AB89C51E1F14C2F6008D10DB /* DMImageBrowserView.h */,
+				AB89C51F1F14C2F6008D10DB /* DMImageBrowserView.m */,
 			);
 			path = DMImageBrowser;
 			sourceTree = "<group>";
@@ -437,16 +452,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB89C51D1F14BDDE008D10DB /* DMImageBrowserViewController.m in Sources */,
 				ABC525B51F0F1F6500283E33 /* DMAlbumModel.m in Sources */,
 				ABB1B1C11F0E143400ED455D /* DMImagePickerAssetCell.m in Sources */,
-				ABB1B1AA1F0DDB9300ED455D /* DMImagePickerViewController.m in Sources */,
 				ABB1B1AD1F0DDC9F00ED455D /* DMImagePickerView.m in Sources */,
 				ABB1B1CC1F0E35A900ED455D /* DMAssetModel.m in Sources */,
-				AB14E6041F13587200FBB9DF /* DMAlbnmListViewController.m in Sources */,
+				AB14E6041F13587200FBB9DF /* DMAlbumListViewController.m in Sources */,
+				AB89C5201F14C2F6008D10DB /* DMImageBrowserView.m in Sources */,
 				ABB1B1781F0DD8EF00ED455D /* AppDelegate.m in Sources */,
+				AB89C51A1F14BD63008D10DB /* DMImagePickerViewController.m in Sources */,
 				ABB1B1BB1F0DE8F800ED455D /* UIFont+SAKitExtend.m in Sources */,
 				ABC525B81F0F204600283E33 /* DMPhotoManager.m in Sources */,
 				ABB1B1751F0DD8EF00ED455D /* main.m in Sources */,
+				AB89C5151F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m in Sources */,
 				ABB1B1BA1F0DE8F800ED455D /* UIColor+SAKitExtend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

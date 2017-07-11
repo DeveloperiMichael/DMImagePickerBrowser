@@ -12,13 +12,6 @@
 
 @interface DMImagePickerViewController : UIViewController
 
-
-/**
- 照片文件夹
- */
-@property (nonatomic, copy) NSString *fileName;
-
-@property (nonatomic, strong) NSArray *albumModelArray;
+@property (nonatomic, strong) DMAlbumModel  *albumModel;
 
 @end
-

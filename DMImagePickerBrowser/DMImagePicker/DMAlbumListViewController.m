@@ -6,19 +6,19 @@
 //  Copyright © 2017年 张炯. All rights reserved.
 //
 
-#import "DMAlbnmListViewController.h"
+#import "DMAlbumListViewController.h"
 #import "DMImagePickerViewController.h"
 #import "DMAlbumModel.h"
 #import "DMPhotoManager.h"
 #import <Masonry/Masonry.h>
-@interface DMAlbnmListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface DMAlbumListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray<DMAlbumModel *> *albumModelArray;
 @property (nonatomic, strong) UITableView *table;
 
 @end
 
-@implementation DMAlbnmListViewController
+@implementation DMAlbumListViewController
 
 
 #pragma mark-
@@ -28,11 +28,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"相册列表";
-    [self getAblumModelArray];
     [self setupSubviewsContraints];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self getAblumModelArray];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_table reloadData];
+        });
+    });
+    
+    
 }
 
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+ 
 #pragma mark-
 #pragma mark- Request
 
@@ -71,7 +82,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DMImagePickerViewController *vc = [[DMImagePickerViewController alloc] init];
-    vc.albumModelArray = [NSArray arrayWithObject:self.albumModelArray[indexPath.row]];
+    vc.albumModel = self.albumModelArray[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -87,9 +98,7 @@
     [[DMPhotoManager sharePhotoManager] getAllAlbums:YES allowPickingImage:YES completion:^(NSArray<DMAlbumModel *> *models) {
         weakSelf.albumModelArray = models;
     }];
-    
 }
-
 
 
 #pragma mark-

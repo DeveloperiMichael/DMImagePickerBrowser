@@ -10,6 +10,7 @@
 #import <Masonry/Masonry.h>
 
 @class DMImagePickerView;
+@class DMImagePickerCollectionView;
 
 @protocol DMImagePickerViewDelegate <NSObject>
 
@@ -17,12 +18,14 @@
 
 - (void)sureButtonClicked:(DMImagePickerView *)view;
 
+- (void)didSelectItemAtIndexPath:(NSIndexPath *)indexPath collectionView:(UICollectionView *)collectionView;
+
 @end
 
 @interface DMImagePickerView : UIView
 
 
-- (instancetype)initWithAssetModelArray:(NSMutableArray *)array;
+- (instancetype)initWithAssetModelArray:(NSArray *)array;
 
 /**
  导航栏标题文字
@@ -34,6 +37,9 @@
  列数
  */
 @property (nonatomic, assign) NSInteger columnNumber;
+
+
+@property (nonatomic, strong) DMImagePickerCollectionView *collectionView;
 
 @property(nonatomic, assign) id<DMImagePickerViewDelegate> delegate;
 

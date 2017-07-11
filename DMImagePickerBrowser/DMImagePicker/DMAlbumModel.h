@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DMAssetModel.h"
 @interface DMAlbumModel : NSObject
 
 @property (nonatomic, copy) NSString *albumName;
@@ -17,9 +17,9 @@
 /** < PHFetchResult<PHAsset> or ALAssetsGroup<ALAsset> */
 @property (nonatomic, strong) id result;
 
-@property (nonatomic, strong) NSArray *assetModels;
+@property (nonatomic, strong) NSArray<DMAssetModel *> *assetModels;
 
-@property (nonatomic, strong) NSArray *selectedModels;
+@property (nonatomic, strong) NSMutableArray<DMAssetModel *> *selectedModels;
 
 @property (nonatomic, assign) NSUInteger selectedCount;
 

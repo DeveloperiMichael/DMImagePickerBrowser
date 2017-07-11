@@ -7,6 +7,7 @@
 //
 
 #import "DMImagePickerViewController.h"
+#import "DMImageBrowserViewController.h"
 #import "DMImagePickerView.h"
 #import "DMPhotoManager.h"
 @interface DMImagePickerViewController ()<DMImagePickerViewDelegate>
@@ -38,8 +39,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBarHidden = YES;
     
-    if (self.albumModelArray.count>0) {
-        [self getAssetModelArray];
+    if (self.albumModel) {
+        if (self.albumModel.assetModels.count<=0) {
+            [self getAssetModelArray];
+        }
+    }else{
+        [self getAblumModel];
     }
     
     [self setupSubviewsContraints];
@@ -77,7 +82,20 @@
 }
 
 - (void)sureButtonClicked:(DMImagePickerView *)view {
-    
+    [_albumModel.selectedModels removeAllObjects];
+    if (_albumModel.assetModels.count>0) {
+        [_albumModel.assetModels enumerateObjectsUsingBlock:^(DMAssetModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (model.isSelected) {
+                [_albumModel.selectedModels addObject:model];
+            }
+        }];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)didSelectItemAtIndexPath:(NSIndexPath *)indexPath collectionView:(UICollectionView *)collectionView {
+    DMImageBrowserViewController *vc = [[DMImageBrowserViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark-
@@ -85,32 +103,29 @@
 
 - (void)getAssetModelArray {
     __weak typeof(self) weakSelf = self;
-    [self.albumModelArray enumerateObjectsUsingBlock:^(DMAlbumModel * _Nonnull albumModel, NSUInteger idx, BOOL * _Nonnull stop) {
-        [[DMPhotoManager sharePhotoManager] getAssetsFromFetchResult:albumModel.result allowPickingVideo:YES allowPickingImage:YES completion:^(NSArray<DMAssetModel *> *models) {
-            [weakSelf.assetModelArray addObjectsFromArray:models];
-        }];
+    [[DMPhotoManager sharePhotoManager] getAssetsFromFetchResult:_albumModel.result allowPickingVideo:YES allowPickingImage:YES completion:^(NSArray<DMAssetModel *> *models) {
+        weakSelf.albumModel.assetModels = models;
     }];
 }
 
+- (void)getAblumModel {
+    __weak typeof(self) weakSelf = self;
+    [[DMPhotoManager sharePhotoManager] getCameraRollAlbum:YES allowPickingImage:YES completion:^(DMAlbumModel *model) {
+        weakSelf.albumModel = model;
+        [weakSelf getAssetModelArray];
+    }];
 
-
+}
 #pragma mark-
 #pragma mark- Getters && Setters
 
 - (DMImagePickerView *)imagePickerView {
     if (!_imagePickerView) {
-        _imagePickerView = [[DMImagePickerView alloc] initWithAssetModelArray:self.assetModelArray];
-        _imagePickerView.navTitle = _fileName;
+        _imagePickerView = [[DMImagePickerView alloc] initWithAssetModelArray:self.albumModel.assetModels];
+        _imagePickerView.navTitle = _albumModel.albumName.length>0?_albumModel.albumName:@"";
         _imagePickerView.delegate = self;
     }
     return _imagePickerView;
-}
-
-- (NSArray *)albumModelArray {
-    if (!_albumModelArray) {
-        _albumModelArray = [NSArray array];
-    }
-    return _albumModelArray;
 }
 
 - (NSMutableArray *)assetModelArray {
@@ -118,10 +133,6 @@
         _assetModelArray = [NSMutableArray array];
     }
     return _assetModelArray;
-}
-
-- (void)setFileName:(NSString *)fileName {
-    _fileName = fileName;
 }
 
 #pragma mark-
