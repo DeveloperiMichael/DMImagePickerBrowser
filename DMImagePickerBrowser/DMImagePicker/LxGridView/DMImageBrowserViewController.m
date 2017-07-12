@@ -7,11 +7,12 @@
 //
 
 #import "DMImageBrowserViewController.h"
+#import "DMImageBrowserCollectionViewCell.h"
 #import "DMImageBrowserView.h"
 #import "UIColor+SAKitExtend.h"
 #import "UIFont+SAKitExtend.h"
 #import <Masonry/Masonry.h>
-@interface DMImageBrowserViewController ()
+@interface DMImageBrowserViewController ()<DMImageBrowserViewDelegate>
 
 @property (nonatomic, strong) DMImageBrowserView *imageBrowserView;
 
@@ -22,26 +23,36 @@
 #pragma mark-
 #pragma mark- View Life Cycle
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self setupSubviewsContraints];
+    
+    
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
-    [UIApplication sharedApplication].statusBarHidden = YES;
-//    if (_currentIndex) [_collectionView setContentOffset:CGPointMake((self.view.tz_width + 20) * _currentIndex, 0) animated:NO];
-    //[self refreshNaviBarAndBottomBarState];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (_currentIndex) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_currentIndex inSection:0];
+            [self.imageBrowserView.collection scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+        }
+    });
+    
 }
+
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
-    [UIApplication sharedApplication].statusBarHidden = NO;
+    
     //[TZImageManager manager].shouldFixOrientation = NO;
 }
 
@@ -66,8 +77,28 @@
 #pragma mark-
 #pragma mark- delegate
 
+- (NSInteger)imageBrowserView_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.assetModelArray.count;
+}
+
+- (UICollectionViewCell *)imageBrowserView_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    DMImageBrowserCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kImageCollectionViewCellIdentifier forIndexPath:indexPath];
+    cell.assetModel = _assetModelArray[indexPath.row];
+    return cell;
+}
+
+- (void)imageBrowserView_scrollViewDidScroll:(UIScrollView *)scrollView andCurrentIndex:(NSInteger)currentIndex {
+    _currentIndex = currentIndex;
+}
 
 
+- (void)backButtonClicked:(DMImageBrowserView *)view {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)selectButtonClicked:(DMImageBrowserView *)view {
+    
+}
 
 #pragma mark-
 #pragma mark- Event response
@@ -86,8 +117,16 @@
 - (DMImageBrowserView *)imageBrowserView {
     if (!_imageBrowserView) {
         _imageBrowserView = [[DMImageBrowserView alloc] init];
+        _imageBrowserView.delegate = self;
     }
     return _imageBrowserView;
+}
+
+- (NSArray<DMAssetModel *> *)assetModelArray {
+    if (!_assetModelArray) {
+        _assetModelArray = [NSArray array];
+    }
+    return _assetModelArray;
 }
 
 #pragma mark-

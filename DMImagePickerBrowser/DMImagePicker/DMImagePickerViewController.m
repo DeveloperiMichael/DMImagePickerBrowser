@@ -14,8 +14,6 @@
 
 @property (nonatomic, strong) DMImagePickerView *imagePickerView;
 
-@property (nonatomic, strong) NSMutableArray *assetModelArray;
-
 @end
 
 @implementation DMImagePickerViewController
@@ -95,6 +93,8 @@
 
 - (void)didSelectItemAtIndexPath:(NSIndexPath *)indexPath collectionView:(UICollectionView *)collectionView {
     DMImageBrowserViewController *vc = [[DMImageBrowserViewController alloc] init];
+    vc.assetModelArray = self.albumModel.assetModels;
+    vc.currentIndex = indexPath.row;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -126,13 +126,6 @@
         _imagePickerView.delegate = self;
     }
     return _imagePickerView;
-}
-
-- (NSMutableArray *)assetModelArray {
-    if (!_assetModelArray) {
-        _assetModelArray = [NSMutableArray array];
-    }
-    return _assetModelArray;
 }
 
 #pragma mark-

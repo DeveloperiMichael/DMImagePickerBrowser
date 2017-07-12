@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "DMAssetModel.h"
 @interface DMImageBrowserViewController : UIViewController
+
+
+@property (nonatomic, strong) NSArray<DMAssetModel *> *assetModelArray;
+
+@property (nonatomic, assign) NSInteger currentIndex;
 
 @end

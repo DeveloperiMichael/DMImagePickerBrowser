@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AB14E6041F13587200FBB9DF /* DMAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB14E6031F13587200FBB9DF /* DMAlbumListViewController.m */; };
+		AB804CAC1F15B5F1009CF6DD /* PageCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AB804CAB1F15B5F1009CF6DD /* PageCollectionViewLayout.m */; };
+		AB804CAE1F163AEE009CF6DD /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = AB804CAD1F163AEE009CF6DD /* 1.png */; };
 		AB89C5151F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89C5141F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m */; };
 		AB89C51A1F14BD63008D10DB /* DMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89C5191F14BD63008D10DB /* DMImagePickerViewController.m */; };
 		AB89C51D1F14BDDE008D10DB /* DMImageBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89C51C1F14BDDE008D10DB /* DMImageBrowserViewController.m */; };
@@ -55,6 +57,9 @@
 		43C8F77C1F1655B2C1B4A5ED /* Pods-DMImagePickerBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DMImagePickerBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DMImagePickerBrowser/Pods-DMImagePickerBrowser.debug.xcconfig"; sourceTree = "<group>"; };
 		AB14E6021F13587200FBB9DF /* DMAlbumListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMAlbumListViewController.h; sourceTree = "<group>"; };
 		AB14E6031F13587200FBB9DF /* DMAlbumListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAlbumListViewController.m; sourceTree = "<group>"; };
+		AB804CAA1F15B5F1009CF6DD /* PageCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageCollectionViewLayout.h; sourceTree = "<group>"; };
+		AB804CAB1F15B5F1009CF6DD /* PageCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageCollectionViewLayout.m; sourceTree = "<group>"; };
+		AB804CAD1F163AEE009CF6DD /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		AB89C5131F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMImageBrowserCollectionViewCell.h; path = ../DMImagePicker/DMImageBrowserCollectionViewCell.h; sourceTree = "<group>"; };
 		AB89C5141F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DMImageBrowserCollectionViewCell.m; path = ../DMImagePicker/DMImageBrowserCollectionViewCell.m; sourceTree = "<group>"; };
 		AB89C5191F14BD63008D10DB /* DMImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImagePickerViewController.m; sourceTree = "<group>"; };
@@ -167,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				ABB1B1B51F0DE8F800ED455D /* category */,
+				AB804CAD1F163AEE009CF6DD /* 1.png */,
 				ABB1B1AE1F0DDF3000ED455D /* image */,
 				ABB1B1A71F0DDB6700ED455D /* DMImageBrowser */,
 				ABB1B1A61F0DDB5200ED455D /* DMImagePicker */,
@@ -236,6 +242,8 @@
 				AB89C5141F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m */,
 				AB89C51E1F14C2F6008D10DB /* DMImageBrowserView.h */,
 				AB89C51F1F14C2F6008D10DB /* DMImageBrowserView.m */,
+				AB804CAA1F15B5F1009CF6DD /* PageCollectionViewLayout.h */,
+				AB804CAB1F15B5F1009CF6DD /* PageCollectionViewLayout.m */,
 			);
 			path = DMImageBrowser;
 			sourceTree = "<group>";
@@ -374,6 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABB1B1C81F0E2E7B00ED455D /* selected.png in Resources */,
+				AB804CAE1F163AEE009CF6DD /* 1.png in Resources */,
 				ABB1B1C91F0E2E7B00ED455D /* unselected.png in Resources */,
 				ABB1B1C71F0E2E7B00ED455D /* unselect.png in Resources */,
 				ABB1B1831F0DD8EF00ED455D /* LaunchScreen.storyboard in Resources */,
@@ -457,6 +466,7 @@
 				ABB1B1C11F0E143400ED455D /* DMImagePickerAssetCell.m in Sources */,
 				ABB1B1AD1F0DDC9F00ED455D /* DMImagePickerView.m in Sources */,
 				ABB1B1CC1F0E35A900ED455D /* DMAssetModel.m in Sources */,
+				AB804CAC1F15B5F1009CF6DD /* PageCollectionViewLayout.m in Sources */,
 				AB14E6041F13587200FBB9DF /* DMAlbumListViewController.m in Sources */,
 				AB89C5201F14C2F6008D10DB /* DMImageBrowserView.m in Sources */,
 				ABB1B1781F0DD8EF00ED455D /* AppDelegate.m in Sources */,

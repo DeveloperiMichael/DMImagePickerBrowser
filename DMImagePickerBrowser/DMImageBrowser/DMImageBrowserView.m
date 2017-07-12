@@ -12,10 +12,14 @@
 #import <Masonry/Masonry.h>
 #import "DMImageBrowserCollectionViewCell.h"
 
-static NSString *const kImageCollectionViewCellIdentifier = @"DMImageBrowserCollectionViewCell";
+
 
 @interface DMImageBrowserView()<UICollectionViewDelegate,UICollectionViewDataSource>
 
+{
+    NSInteger _currentIndex;
+    NSInteger _collectionNumber;
+}
 @property (nonatomic, strong) UIView *navigationView;
 
 @property (nonatomic, strong) UIButton *leftButton;
@@ -25,8 +29,6 @@ static NSString *const kImageCollectionViewCellIdentifier = @"DMImageBrowserColl
 @property (nonatomic, strong) UILabel *titleLabel;
 
 @property (nonatomic, strong) UIView *bottomView;
-
-@property (nonatomic, strong) UICollectionView *collection;
 
 @end
 
@@ -47,17 +49,31 @@ static NSString *const kImageCollectionViewCellIdentifier = @"DMImageBrowserColl
 #pragma mark- delegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 30;
+    _collectionNumber = [_delegate imageBrowserView_collectionView:collectionView numberOfItemsInSection:section];
+    return _collectionNumber;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    DMImageBrowserCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kImageCollectionViewCellIdentifier forIndexPath:indexPath];
-    
-    return cell;
+    return [_delegate imageBrowserView_collectionView:collectionView cellForItemAtIndexPath:indexPath];
 }
 
+#pragma mark - UIScrollViewDelegate
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offSetWidth = scrollView.contentOffset.x;
+    offSetWidth = offSetWidth +  (([UIScreen mainScreen].bounds.size.width + 20) * 0.5);
+    
+    NSInteger currentIndex = offSetWidth / ([UIScreen mainScreen].bounds.size.width + 20);
+    
+    if (currentIndex < _collectionNumber && _currentIndex != currentIndex) {
+        _currentIndex = currentIndex;
+        
+        if ([_delegate respondsToSelector:@selector(imageBrowserView_scrollViewDidScroll:andCurrentIndex:)]) {
+            [_delegate imageBrowserView_scrollViewDidScroll:scrollView andCurrentIndex:_currentIndex];
+        }
+    }
+    
+}
 
 #pragma mark-
 #pragma mark- Event response
@@ -69,11 +85,15 @@ static NSString *const kImageCollectionViewCellIdentifier = @"DMImageBrowserColl
 #pragma mark- Private Methods
 
 - (void)backButtonAction:(UIButton *)button {
-    
+    if ([_delegate respondsToSelector:@selector(backButtonClicked:)]) {
+        [_delegate backButtonClicked:self];
+    }
 }
 
 - (void)selectButtonAction:(UIButton *)button {
-    
+    if ([_delegate respondsToSelector:@selector(selectButtonClicked:)]) {
+        [_delegate selectButtonClicked:self];
+    }
 }
 
 
@@ -92,6 +112,7 @@ static NSString *const kImageCollectionViewCellIdentifier = @"DMImageBrowserColl
     if (!_leftButton) {
         _leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_leftButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        _leftButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_leftButton setTitleColor:[UIColor sa_colorC11] forState:UIControlStateNormal];
         [_leftButton addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -104,6 +125,7 @@ static NSString *const kImageCollectionViewCellIdentifier = @"DMImageBrowserColl
         [_rightButton setTitleColor:[UIColor sa_colorC11] forState:UIControlStateNormal];
         [_rightButton addTarget:self action:@selector(selectButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_rightButton setImage:[UIImage imageNamed:@"unselect"] forState:UIControlStateNormal];
+        _rightButton.contentEdgeInsets = UIEdgeInsetsMake(8, 16, 8, 0);
     }
     return _rightButton;
 }
@@ -121,7 +143,7 @@ static NSString *const kImageCollectionViewCellIdentifier = @"DMImageBrowserColl
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumInteritemSpacing = 0;
         layout.minimumLineSpacing = 0;
-        layout.itemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width+20, [UIScreen mainScreen].bounds.size.width);
+        layout.itemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width+20, [UIScreen mainScreen].bounds.size.height);
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         _collection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _collection.backgroundColor = [UIColor whiteColor];
@@ -145,7 +167,9 @@ static NSString *const kImageCollectionViewCellIdentifier = @"DMImageBrowserColl
     [self.navigationView addSubview:self.rightButton];
     [self addSubview:self.bottomView];
     [_collection mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(self);
+        make.top.bottom.mas_equalTo(self);
+        make.left.mas_equalTo(self).mas_offset(-10);
+        make.width.mas_equalTo([UIScreen mainScreen].bounds.size.width+20);
     }];
     [_navigationView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.mas_equalTo(self);
@@ -153,14 +177,15 @@ static NSString *const kImageCollectionViewCellIdentifier = @"DMImageBrowserColl
     }];
     [_leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.navigationView).mas_offset(15);
+        make.width.mas_equalTo(40);
         make.top.mas_equalTo(self.navigationView).mas_equalTo(20);
         make.bottom.mas_equalTo(self.navigationView);
     }];
     [_rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.navigationView).mas_offset(-15);
         make.centerY.mas_equalTo(_leftButton);
-        make.width.mas_equalTo(24);
-        make.height.mas_equalTo(24);
+        make.width.mas_equalTo(40);
+        make.height.mas_equalTo(40);
     }];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.navigationView).mas_equalTo(20);
