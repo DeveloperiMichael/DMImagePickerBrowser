@@ -11,11 +11,11 @@
 #import "UIFont+SAKitExtend.h"
 #import <Masonry/Masonry.h>
 #import "DMPhotoManager.h"
-@interface DMImageBrowserCollectionViewCell()
+@interface DMImageBrowserCollectionViewCell()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIImageView *contentImageView;
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+
 
 @end
 
@@ -31,12 +31,25 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setupSubviewsContraints];
+        
+        UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+        [self addGestureRecognizer:tap1];
+        UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+        tap2.numberOfTapsRequired = 2;
+        [tap1 requireGestureRecognizerToFail:tap2];
+        [self addGestureRecognizer:tap2];
     }
     return self;
 }
 
 #pragma mark-
 #pragma mark- delegate
+
+- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.contentImageView;
+}
+
+
 
 
 
@@ -45,6 +58,31 @@
 #pragma mark-
 #pragma mark- Event response
 
+
+#pragma mark - UITapGestureRecognizer Event
+
+- (void)doubleTap:(UITapGestureRecognizer *)tap {
+    if (_scrollView.zoomScale > 1.0) {
+        _scrollView.contentInset = UIEdgeInsetsZero;
+        [_scrollView setZoomScale:1.0 animated:YES];
+    } else {
+        CGPoint touchPoint = [tap locationInView:self.contentImageView];
+        CGFloat newZoomScale = _scrollView.maximumZoomScale;
+        CGFloat xsize = self.frame.size.width / newZoomScale;
+        CGFloat ysize = self.frame.size.height / newZoomScale;
+        [_scrollView zoomToRect:CGRectMake(touchPoint.x - xsize/2, touchPoint.y - ysize/2, xsize, ysize) animated:YES]; 
+    }
+}
+
+- (void)singleTap:(UITapGestureRecognizer *)tap {
+    //    if (self.singleTapGestureBlock) {
+    //        self.singleTapGestureBlock();
+    //    }
+}
+
+-(void)resetScrollZoomView {
+    [_scrollView setZoomScale:1.0 animated:NO];
+}
 
 #pragma mark-
 #pragma mark- Private Methods
@@ -60,8 +98,10 @@
         }];
     }else{
         _scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-        [_contentImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        [_contentImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.center.mas_equalTo(_scrollView);
             make.height.mas_equalTo(contentHeight);
+            make.width.mas_equalTo([UIScreen mainScreen].bounds.size.width);
         }];
     }
 }
@@ -101,13 +141,18 @@
 //            self.imageProgressUpdateBlock(progress);
 //        }
     } networkAccessAllowed:YES];
+    
+    [self resetScrollZoomView];
 }
 
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
         _scrollView = [[UIScrollView alloc] init];
         _scrollView.showsVerticalScrollIndicator = YES;
-        
+        _scrollView.maximumZoomScale = 2.5;
+        _scrollView.minimumZoomScale = 1.0;
+        _scrollView.directionalLockEnabled = YES;
+        _scrollView.delegate = self;
     }
     return _scrollView;
 }

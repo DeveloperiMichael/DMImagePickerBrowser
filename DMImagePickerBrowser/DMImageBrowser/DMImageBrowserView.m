@@ -57,6 +57,18 @@
     return [_delegate imageBrowserView_collectionView:collectionView cellForItemAtIndexPath:indexPath];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[DMImageBrowserCollectionViewCell class]]) {
+        [(DMImageBrowserCollectionViewCell *)cell resetScrollZoomView];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[DMImageBrowserCollectionViewCell class]]) {
+        [(DMImageBrowserCollectionViewCell *)cell resetScrollZoomView];
+    }
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -71,6 +83,7 @@
         if ([_delegate respondsToSelector:@selector(imageBrowserView_scrollViewDidScroll:andCurrentIndex:)]) {
             [_delegate imageBrowserView_scrollViewDidScroll:scrollView andCurrentIndex:_currentIndex];
         }
+        
     }
     
 }
@@ -146,10 +159,9 @@
         layout.itemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width+20, [UIScreen mainScreen].bounds.size.height);
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         _collection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-        _collection.backgroundColor = [UIColor whiteColor];
+        _collection.backgroundColor = [UIColor blackColor];
         _collection.pagingEnabled = YES;
         _collection.showsHorizontalScrollIndicator = NO;
-        _collection.bounces = NO;
         _collection.delegate = self;
         _collection.dataSource = self;
         [_collection registerClass:[DMImageBrowserCollectionViewCell class] forCellWithReuseIdentifier:kImageCollectionViewCellIdentifier];

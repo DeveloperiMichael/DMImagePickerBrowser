@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AB14E6041F13587200FBB9DF /* DMAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB14E6031F13587200FBB9DF /* DMAlbumListViewController.m */; };
 		AB804CAC1F15B5F1009CF6DD /* PageCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AB804CAB1F15B5F1009CF6DD /* PageCollectionViewLayout.m */; };
-		AB804CAE1F163AEE009CF6DD /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = AB804CAD1F163AEE009CF6DD /* 1.png */; };
 		AB89C5151F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89C5141F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m */; };
 		AB89C51A1F14BD63008D10DB /* DMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89C5191F14BD63008D10DB /* DMImagePickerViewController.m */; };
 		AB89C51D1F14BDDE008D10DB /* DMImageBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89C51C1F14BDDE008D10DB /* DMImageBrowserViewController.m */; };
@@ -59,7 +58,6 @@
 		AB14E6031F13587200FBB9DF /* DMAlbumListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAlbumListViewController.m; sourceTree = "<group>"; };
 		AB804CAA1F15B5F1009CF6DD /* PageCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageCollectionViewLayout.h; sourceTree = "<group>"; };
 		AB804CAB1F15B5F1009CF6DD /* PageCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageCollectionViewLayout.m; sourceTree = "<group>"; };
-		AB804CAD1F163AEE009CF6DD /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		AB89C5131F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMImageBrowserCollectionViewCell.h; path = ../DMImagePicker/DMImageBrowserCollectionViewCell.h; sourceTree = "<group>"; };
 		AB89C5141F14BC6E008D10DB /* DMImageBrowserCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DMImageBrowserCollectionViewCell.m; path = ../DMImagePicker/DMImageBrowserCollectionViewCell.m; sourceTree = "<group>"; };
 		AB89C5191F14BD63008D10DB /* DMImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImagePickerViewController.m; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				ABB1B1B51F0DE8F800ED455D /* category */,
-				AB804CAD1F163AEE009CF6DD /* 1.png */,
 				ABB1B1AE1F0DDF3000ED455D /* image */,
 				ABB1B1A71F0DDB6700ED455D /* DMImageBrowser */,
 				ABB1B1A61F0DDB5200ED455D /* DMImagePicker */,
@@ -382,7 +379,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABB1B1C81F0E2E7B00ED455D /* selected.png in Resources */,
-				AB804CAE1F163AEE009CF6DD /* 1.png in Resources */,
 				ABB1B1C91F0E2E7B00ED455D /* unselected.png in Resources */,
 				ABB1B1C71F0E2E7B00ED455D /* unselect.png in Resources */,
 				ABB1B1831F0DD8EF00ED455D /* LaunchScreen.storyboard in Resources */,
@@ -415,9 +411,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DMImagePickerBrowser/Pods-DMImagePickerBrowser-resources.sh",
+				"${PODS_ROOT}/DMPrivateKit/DMPrivateKit/Classes/image.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/SALocalizable/SALocalizable/SALocalizable.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -430,13 +431,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DMImagePickerBrowser-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E97439467E753556E8671970 /* [CP] Embed Pods Frameworks */ = {

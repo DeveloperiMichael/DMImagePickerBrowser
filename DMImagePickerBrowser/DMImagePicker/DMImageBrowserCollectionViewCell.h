@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "DMAssetModel.h"
+
+
 @interface DMImageBrowserCollectionViewCell : UICollectionViewCell
 
 @property(nonatomic, strong) DMAssetModel *assetModel;
+
+@property (nonatomic, strong) UIScrollView *scrollView;
+
+- (void)resetScrollZoomView;
 
 @end
